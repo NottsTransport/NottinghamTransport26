@@ -241,3 +241,80 @@ function createHeartPop(btn) {
         heart.remove();
     }, 800);
 }
+
+
+// Background Music 
+
+const music = new Audio('Ed Sheeran, Elton John - Merry Christmas (Lyrics).mp3');
+music.loop = true;
+music.volume = 0.5;
+
+const btn = document.getElementById('musicToggle');
+
+// Try to play on page load (may be blocked by browser)
+window.addEventListener('DOMContentLoaded', () => {
+    music.play().catch(() => {
+        console.log("Autoplay blocked — waiting for user click");
+    });
+});
+
+btn.addEventListener('click', () => {
+    if (music.paused) {
+        music.play();
+        btn.textContent = '🔊';
+    } else {
+        music.pause();
+        btn.textContent = '🔈';
+    }
+});
+
+
+
+
+
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const snowflakes = [];
+
+for (let i = 0; i < 100; i++) {
+  snowflakes.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 3 + 1,
+    speed: Math.random() * 1 + 0.5
+  });
+}
+
+function drawSnow() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "white";
+
+  for (let flake of snowflakes) {
+    ctx.beginPath();
+    ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    flake.y += flake.speed;
+
+    if (flake.y > canvas.height) {
+      flake.y = -5;
+      flake.x = Math.random() * canvas.width;
+    }
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+drawSnow();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+

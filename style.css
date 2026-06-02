@@ -5,37 +5,73 @@
     box-sizing: border-box;
 }
 
+/* =========================
+   FONT
+========================= */
 @font-face {
     font-family: 'Transport';
-    src: url('/Chomage.otf') format('truetype');
+    src: url('La\ Machine\ Company.ttf') format('truetype');
 }
 
+/* =========================
+   BODY (better glass background support)
+========================= */
 body {
     margin: 0;
     min-height: 100vh;
-    background: rgb(20, 20, 20);
     font-family: Arial, Helvetica, sans-serif;
     color: white;
+
+    background: radial-gradient(circle at top, #1a2a3a, #0a0a0a);
 }
 
+/* =========================
+   GLASS BASE CLASS (REUSABLE)
+========================= */
+.glass {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+#countdown {
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* =========================
+   SNOW
+========================= */
+#snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* =========================
+   HEART ANIMATIONS
+========================= */
 @keyframes heartPop {
-    0% {
-        transform: scale(0.3);
-        opacity: 0;
-    }
-    40% {
-        transform: scale(1.4);
-        opacity: 1;
-    }
-    70% {
-        transform: scale(0.9);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(0.3); opacity: 0; }
+    40% { transform: scale(1.4); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
 }
 
-/* floating heart effect */
 .floating-heart {
     position: absolute;
     font-size: 40px;
@@ -45,18 +81,12 @@ body {
 }
 
 @keyframes heartFloat {
-    0% {
-        transform: translateY(0) scale(0.5);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-60px) scale(1.2);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
 }
 
 /* =========================
-   HEADER
+   HEADER (GLASS)
 ========================= */
 .topcontainer {
     display: flex;
@@ -68,9 +98,14 @@ body {
     z-index: 999;
     width: 100%;
     min-height: 70px;
-    background: rgba(1, 63, 78, 0.39);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
+
+    background: rgba(10, 10, 10, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
 .logo {
@@ -82,8 +117,11 @@ body {
 
 .topcontainer h1 {
     margin: 0;
+    padding: 20px;
+    text-align: center;
     font-family: 'Transport';
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: rgb(255, 255, 255);
+    font-size: clamp(1.2rem, 3vw, rem);
 }
 
 /* =========================
@@ -103,9 +141,13 @@ body {
     border: none;
     outline: none;
 
-    border-radius: 10px;
-    background: rgb(35, 35, 35);
+    border-radius: 80px;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+
     color: white;
+    backdrop-filter: blur(10px);
 }
 
 .searchbar input::placeholder {
@@ -120,31 +162,32 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 10px;
-    margin-top: 90px;
+    margin: 90px 10px 10px;
 }
 
-
 .filter-btn {
-    background: rgb(35, 35, 35);
-    color: white;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
 
-    border: none;
+    color: white;
     padding: 8px 14px;
-    border-radius: 8px;
+    border-radius: 80px;
 
     cursor: pointer;
     transition: 0.2s;
+    backdrop-filter: blur(10px);
 }
 
 .filter-btn:hover {
-    background: rgb(70, 70, 70);
+    background: rgba(255,255,255,0.12);
+animation: wobbleStretch 0.45s ease-out;
 }
 
+
 .filter-btn.active {
-    background: rgb(0, 140, 150);
-    color: black;
-    font-weight: bold;
+    background: rgba(0, 200, 210, 0.35);
+    color: white;
+    
 }
 
 /* =========================
@@ -162,21 +205,27 @@ body {
     padding: 10px;
 }
 
-/* CARD */
+/* CARD (GLASS) */
 .griditem {
     position: relative;
 
-    background: rgb(35, 35, 35);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
     border-radius: 12px;
     overflow: hidden;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .griditem:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 /* IMAGE */
@@ -204,13 +253,13 @@ body {
 }
 
 /* =========================
-   FAVORITE BUTTON
+   LIKE BUTTON
 ========================= */
 .like-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    /* Increase touch target for mobile (44px recommended minimum) */
+
     width: 44px;
     height: 44px;
 
@@ -218,24 +267,20 @@ body {
     align-items: center;
     justify-content: center;
 
-    background: rgb(37, 37, 37);
-    border-radius: 50%;
+    background: rgba(30,30,30,0.6);
+    border: 1px solid rgba(255,255,255,0.12);
 
+    border-radius: 50%;
     cursor: pointer;
+
+    z-index: 5;
     transition: 0.2s;
 
-    /* Ensure button sits above the image for reliable taps */
-    z-index: 5;
-
-    font-size: 18px;
-
-    /* Improve mobile tap behaviour */
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    backdrop-filter: blur(10px);
 }
 
 .like-btn:hover {
-    transform: scale(1.2);
+    animation: wobbleStretch 0.45s ease-out;
 }
 
 .like-btn.active {
@@ -263,8 +308,7 @@ body {
     border-radius: 10px;
 }
 
-
-/* NAV BUTTONS */
+/* NAV */
 .nav {
     position: absolute;
     top: 50%;
@@ -309,18 +353,22 @@ body {
     color: rgb(180,180,180);
 }
 
-
+/* VIDEO */
 .griditem video {
     width: 100%;
-    height: 160px;        /* same as your images */
-    object-fit: cover;    /* crops like an image */
+    height: 160px;
+    object-fit: cover;
     display: block;
 }
 
-
-
+/* =========================
+   FOOTER (GLASS STYLE)
+========================= */
 .footer {
-    background: rgb(25, 25, 25);
+    background: rgba(20,20,20,0.6);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+
     color: white;
     margin-top: 40px;
     padding: 30px 20px 10px;
@@ -335,26 +383,13 @@ body {
     margin: auto;
 }
 
-.footer-left h3 {
-    margin: 0 0 10px 0;
-}
-
 .footer-left p {
     color: rgb(180, 180, 180);
-    max-width: 400px;
-}
-
-.footer-links,
-.footer-social {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 .footer a {
     color: rgb(200, 200, 200);
     text-decoration: none;
-    transition: 0.2s;
 }
 
 .footer a:hover {
@@ -370,6 +405,7 @@ body {
     color: rgb(150, 150, 150);
 }
 
+/* SOCIAL */
 .footer-social a {
     display: inline-flex;
     align-items: center;
@@ -380,26 +416,20 @@ body {
 
     margin-right: 10px;
 
-    background: rgb(35,35,35);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+
     border-radius: 10px;
 
-    color: white;
-    font-size: 18px;
-
     transition: 0.2s;
-    text-decoration: none;
 }
 
 .footer-social a:hover {
-    background: rgb(70,70,70);
+    background: rgba(255,255,255,0.12);
     transform: translateY(-3px);
 }
 
-.NCT {
-    width: 160px;
-
-}
-
+/* TAGS */
 .tags {
     margin-top: 8px;
     display: flex;
@@ -409,12 +439,32 @@ body {
 
 .tags span {
     font-size: 0.75rem;
-    background: rgb(45,45,45);
-    color: rgb(200,200,200);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
 
     padding: 3px 8px;
     border-radius: 6px;
+}
 
-    cursor: pointer;
-    transition: 0.2s;
+
+@keyframes wobbleStretch {
+    0% {
+        transform: scale(1);
+    }
+
+    35% {
+        transform: scale(1.12);
+    }
+
+    60% {
+        transform: scale(0.98);
+    }
+
+    80% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
