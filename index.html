@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nottingham Transport Photos</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER / TITLE BAR
+========================= -->
+<div class="topcontainer">
+    <img class="logo" src="Nottingham.png" alt="Logo">
+    <h1>Nottingham Transport Photos</h1>
+</div>
+
+
+<!-- =========================
+     FILTER BUTTONS
+========================= -->
+<div class="filters">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('Wrightbus', this)">Wright Bus</button>
+    <button class="filter-btn" onclick="filterGallery('Yutong', this)">Yutong</button>
+    <button class="filter-btn" onclick="filterGallery('BioGas', this)">Bio-Gas</button>
+</div>
+
+
+<!-- =========================
+     SEARCH BAR
+========================= -->
+<div class="searchbar">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search images..."
+        onkeyup="searchGallery()"
+    >
+</div>
+
+<div id="noResults" class="no-results">
+    No results found
+</div>
+
+
+<!-- =========================
+     GALLERY GRID START
+========================= -->
+<div class="gridbox">
+
+
+    <!-- =========================
+         CARD 1
+    ========================= -->
+    <div class="griditem" data-id="1" data-category="Wrightbus">
+
+        <img src="Photos/southwell26.jpeg" onclick="openLightbox(this)" alt="Wrightbus">
+
+        <div class="card-content">
+            <h3 class="card-title">Welcome to the Wrightbus</h3>
+
+            <p class="card-desc">
+                The all-new Wrightbus has been introduced to the Nottingham City Transport fleet,
+                serving the routes <strong>25, 26 and 27</strong>.
+                You identify them with fleet numbers <strong>671, 672, 673, 674, 675 and 676</strong>.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         CARD 2
+    ========================= -->
+    <div class="griditem" data-id="2" data-category="BioGas">
+
+        <img src="Photos/Orangeline.jpeg" onclick="openLightbox(this)" alt="bio gas bus">
+
+        <div class="card-content">
+            <h3 class="card-title">Welcome to the Orange Line</h3>
+
+            <p class="card-desc">
+                Orange Line serves routes <strong>34, 35, and 36</strong> in Nottingham.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         CARD 3
+    ========================= -->
+    <div class="griditem" data-id="3" data-category="BioGas">
+
+        <img src="Photos/brownline.jpeg" onclick="openLightbox(this)" alt="Bio Gas Bus">
+
+        <div class="card-content">
+            <h3 class="card-title">Welcome to the Brown Line</h3>
+
+            <p class="card-desc">
+                Brown Line serves routes 15, 16 and 17 in Nottingham.
+            </p>
+        </div>
+    </div>
+
+        <!-- =========================
+         CARD 4
+    ========================= -->
+    <div class="griditem" data-id="4" data-category="Yutong">
+
+        <img src="Photos/yutongblue.jpeg" onclick="openLightbox(this)" alt="Yutong Bus">
+
+        <div class="card-content">
+            <h3 class="card-title">Welcome to the Yutong</h3>
+
+            <p class="card-desc">
+                Yutong buses are part of the Nottingham City Electric Transport fleet.
+            </p>
+        </div>
+    </div>
+
+
+
+    
+
+
+</div>
+<!-- =========================
+     GALLERY GRID END
+========================= -->
+
+
+<!-- =========================
+     LIGHTBOX
+========================= -->
+<div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" alt="Expanded view">
+</div>
+
+
+<!-- =========================
+     SCRIPT
+========================= -->
+<script src="script.js"></script>
+
+</body>
+</html>

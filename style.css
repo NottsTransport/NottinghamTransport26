@@ -1,0 +1,253 @@
+/* =========================
+   RESET
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: rgb(20, 20, 20);
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+/* =========================
+   HEADER
+========================= */
+.topcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    min-height: 70px;
+    background: rgb(30, 30, 30);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.logo {
+    position: absolute;
+    left: 15px;
+    width: 45px;
+    height: 45px;
+}
+
+.topcontainer h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+/* =========================
+   SEARCH BAR
+========================= */
+.searchbar {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.searchbar input {
+    width: 60%;
+    max-width: 400px;
+
+    padding: 10px 14px;
+    border: none;
+    outline: none;
+
+    border-radius: 10px;
+    background: rgb(35, 35, 35);
+    color: white;
+}
+
+.searchbar input::placeholder {
+    color: rgb(160, 160, 160);
+}
+
+/* =========================
+   FILTERS
+========================= */
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px;
+}
+
+.filter-btn {
+    background: rgb(35, 35, 35);
+    color: white;
+
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-btn:hover {
+    background: rgb(70, 70, 70);
+}
+
+.filter-btn.active {
+    background: rgb(255, 200, 0);
+    color: black;
+    font-weight: bold;
+}
+
+/* =========================
+   GRID
+========================= */
+.gridbox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+
+    width: 95%;
+    max-width: 1200px;
+
+    margin: 30px auto;
+    padding: 10px;
+}
+
+/* CARD */
+.griditem {
+    position: relative;
+
+    background: rgb(35, 35, 35);
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.griditem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+}
+
+/* IMAGE */
+.griditem img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+/* TEXT */
+.card-content {
+    padding: 12px;
+}
+
+.card-title {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+}
+
+.card-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgb(180,180,180);
+}
+
+/* =========================
+   FAVORITE BUTTON
+========================= */
+.like-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+
+    cursor: pointer;
+    transition: 0.2s;
+
+    font-size: 16px;
+}
+
+.like-btn:hover {
+    transform: scale(1.2);
+}
+
+.like-btn.active {
+    color: red;
+}
+
+/* =========================
+   LIGHTBOX
+========================= */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* NAV BUTTONS */
+.nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: rgba(0,0,0,0.5);
+    color: white;
+
+    border: none;
+    font-size: 30px;
+    padding: 10px 15px;
+
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.nav:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* =========================
+   UTILITIES
+========================= */
+.hidden {
+    display: none !important;
+}
+
+.highlight {
+    background: rgb(255,200,0);
+    color: black;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.no-results {
+    display: none;
+    text-align: center;
+    margin: 30px;
+    color: rgb(180,180,180);
+}
