@@ -11,6 +11,19 @@ let favorites = [];
 document.addEventListener("DOMContentLoaded", () => {
     loadFavorites();
     updateFavoriteUI();
+    // Attach mobile-friendly handlers to like buttons
+    document.querySelectorAll('.like-btn').forEach(btn => {
+        // Prevent taps on the like button from bubbling to the image/lightbox.
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(btn);
+        });
+
+        // On touch devices, stop propagation on touchstart to avoid accidental image taps.
+        btn.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+    });
 
     document.addEventListener("keydown", (e) => {
         const lightbox = document.getElementById("lightbox");
@@ -150,10 +163,14 @@ function toggleFavorite(btn) {
 
     if (!id) return;
 
+    // toggle favorite
     if (favorites.includes(id)) {
         favorites = favorites.filter(f => f !== id);
     } else {
         favorites.push(id);
+
+        // 💥 HEART POP ANIMATION (only when liking)
+        createHeartPop(btn);
     }
 
     saveFavorites();
@@ -199,4 +216,25 @@ function showFavorites(btn) {
 
     document.getElementById("noResults").style.display =
         visible === 0 ? "block" : "none";
+}
+
+function createHeartPop(btn) {
+    const heart = document.createElement("div");
+    heart.classList.add("floating-heart");
+    heart.innerHTML = "❤";
+
+    const rect = btn.getBoundingClientRect();
+
+    // Account for page scroll when positioning on mobile
+    const scrollLeft = window.scrollX || window.pageXOffset || 0;
+    const scrollTop = window.scrollY || window.pageYOffset || 0;
+
+    heart.style.left = (rect.left + scrollLeft) + "px";
+    heart.style.top = (rect.top + scrollTop) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 800);
 }
