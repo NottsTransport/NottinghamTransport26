@@ -207,6 +207,7 @@ body {
     border-radius: 10px;
 }
 
+
 /* NAV BUTTONS */
 .nav {
     position: absolute;
@@ -250,4 +251,90 @@ body {
     text-align: center;
     margin: 30px;
     color: rgb(180,180,180);
+}
+
+
+.griditem video {
+    width: 100%;
+    height: 160px;        /* same as your images */
+    object-fit: cover;    /* crops like an image */
+    display: block;
+}
+
+
+
+.footer {
+    background: rgb(25, 25, 25);
+    color: white;
+    margin-top: 40px;
+    padding: 30px 20px 10px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-left h3 {
+    margin: 0 0 10px 0;
+}
+
+.footer-left p {
+    color: rgb(180, 180, 180);
+    max-width: 300px;
+}
+
+.footer-links,
+.footer-social {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer a {
+    color: rgb(200, 200, 200);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.footer a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgb(50, 50, 50);
+    font-size: 0.85rem;
+    color: rgb(150, 150, 150);
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    margin-right: 10px;
+
+    background: rgb(35,35,35);
+    border-radius: 10px;
+
+    color: white;
+    font-size: 18px;
+
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    background: rgb(70,70,70);
+    transform: translateY(-3px);
 }

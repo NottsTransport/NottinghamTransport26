@@ -41,37 +41,41 @@ function hideItem(item) {
    LIGHTBOX
 ========================= */
 
-function collectImages() {
-    images = Array.from(document.querySelectorAll(".griditem img"));
+function openLightbox(el) {
+    const lightbox = document.getElementById("lightbox");
+
+    const item = el.closest(".griditem");
+    const img = item.querySelector("img");
+    const video = item.querySelector("video");
+
+    lightbox.style.display = "flex";
+
+    // IMAGE
+    if (img && el.tagName === "IMG") {
+        lightbox.innerHTML = `
+            <img id="lightbox-img" src="${img.src}">
+        `;
+    }
+
+    // VIDEO (LOCAL FILE)
+    else if (video) {
+        const src = video.querySelector("source").src;
+
+        lightbox.innerHTML = `
+            <video controls style="max-width:90%; max-height:80%;">
+                <source src="${src}" type="video/mp4">
+            </video>
+        `;
+    }
 }
 
-function openLightbox(img) {
-    collectImages();
-    currentIndex = images.indexOf(img);
 
-    showImage();
-    document.getElementById("lightbox").style.display = "flex";
-}
+function closeLightbox() {
+    const lightbox = document.getElementById("lightbox");
 
-function showImage() {
-    const lightboxImg = document.getElementById("lightbox-img");
-    lightboxImg.src = images[currentIndex].src;
-}
+    lightbox.style.display = "none";
 
-function changeImage(direction, e) {
-    if (e) e.stopPropagation();
-
-    currentIndex += direction;
-
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-
-    showImage();
-}
-
-function closeLightbox(e) {
-    if (e && e.target.id !== "lightbox") return;
-    document.getElementById("lightbox").style.display = "none";
+    lightbox.innerHTML = `<img id="lightbox-img">`;
 }
 
 /* =========================
