@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Transport';
+    src: url('/Chomage.otf') format('truetype');
+}
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -20,11 +25,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
     min-height: 70px;
-    background: rgb(30, 30, 30);
+    background: rgba(1, 63, 78, 0.39);
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
 }
 
 .logo {
@@ -36,6 +45,7 @@ body {
 
 .topcontainer h1 {
     margin: 0;
+    font-family: 'Transport';
     font-size: clamp(1.2rem, 3vw, 1.8rem);
 }
 
@@ -74,6 +84,7 @@ body {
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px;
+    margin-top: 90px;
 }
 
 .filter-btn {
@@ -93,7 +104,7 @@ body {
 }
 
 .filter-btn.active {
-    background: rgb(255, 200, 0);
+    background: rgb(0, 140, 150);
     color: black;
     font-weight: bold;
 }
@@ -337,4 +348,25 @@ body {
 .footer-social a:hover {
     background: rgb(70,70,70);
     transform: translateY(-3px);
+}
+
+
+
+.tags {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tags span {
+    font-size: 0.75rem;
+    background: rgb(45,45,45);
+    color: rgb(200,200,200);
+
+    padding: 3px 8px;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: 0.2s;
 }
