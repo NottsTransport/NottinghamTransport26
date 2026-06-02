@@ -3,6 +3,16 @@
 ========================= */
 
 let favorites = [];
+let favoriteCounts = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0
+};
+
+const API_URL = 'http://localhost:3000/api';
 
 /* =========================
    INIT
@@ -10,7 +20,6 @@ let favorites = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     loadFavorites();
-    updateFavoriteUI();
     // Attach mobile-friendly handlers to like buttons
     document.querySelectorAll('.like-btn').forEach(btn => {
         // Prevent taps on the like button from bubbling to the image/lightbox.
@@ -149,12 +158,26 @@ function highlightText(text, query) {
 ========================= */
 
 function loadFavorites() {
+    // Load user's local favorites from localStorage
     const stored = localStorage.getItem("favorites");
     favorites = stored ? JSON.parse(stored) : [];
+    
+    // Load global counts from API
+    fetch(`${API_URL}/favorites`)
+        .then(res => res.json())
+        .then(data => {
+            favoriteCounts = data;
+            updateFavoriteUI();
+        })
+        .catch(err => {
+            console.error('Error loading favorites:', err);
+            // Fallback to default values if API is unavailable
+            updateFavoriteUI();
+        });
 }
 
 function saveFavorites() {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    // Favorites are now saved via API
 }
 
 function toggleFavorite(btn) {
@@ -163,24 +186,48 @@ function toggleFavorite(btn) {
 
     if (!id) return;
 
-    // toggle favorite
-    if (favorites.includes(id)) {
+    // Check if user has already liked this
+    const isCurrentlyLiked = favorites.includes(id);
+
+    if (isCurrentlyLiked) {
+        // Unlike - remove from favorites and decrement count
         favorites = favorites.filter(f => f !== id);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        
+        fetch(`${API_URL}/favorites/${id}/decrement`, {
+            method: 'POST'
+        })
+            .then(res => res.json())
+            .then(data => {
+                favoriteCounts[id] = data.count;
+                updateFavoriteUI();
+            })
+            .catch(err => console.error('Error decrementing favorite:', err));
     } else {
+        // Like - add to favorites and increment count
         favorites.push(id);
-
-        // 💥 HEART POP ANIMATION (only when liking)
-        createHeartPop(btn);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        
+        fetch(`${API_URL}/favorites/${id}/increment`, {
+            method: 'POST'
+        })
+            .then(res => res.json())
+            .then(data => {
+                favoriteCounts[id] = data.count;
+                createHeartPop(btn);
+                updateFavoriteUI();
+            })
+            .catch(err => console.error('Error incrementing favorite:', err));
     }
-
-    saveFavorites();
-    updateFavoriteUI();
 }
+
+
 
 function updateFavoriteUI() {
     document.querySelectorAll(".griditem").forEach(item => {
         const id = item.dataset.id;
         const btn = item.querySelector(".like-btn");
+        const countDisplay = item.querySelector(".favorite-count");
 
         if (!btn) return;
 
@@ -188,6 +235,10 @@ function updateFavoriteUI() {
 
         btn.classList.toggle("active", isFav);
         btn.innerHTML = isFav ? "❤" : "♡";
+        
+        if (countDisplay) {
+            countDisplay.textContent = favoriteCounts[id] || 0;
+        }
     });
 }
 
