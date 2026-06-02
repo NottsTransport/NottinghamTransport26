@@ -3,8 +3,6 @@
 ========================= */
 
 let favorites = [];
-let images = [];
-let currentIndex = 0;
 
 /* =========================
    INIT
@@ -13,29 +11,14 @@ let currentIndex = 0;
 document.addEventListener("DOMContentLoaded", () => {
     loadFavorites();
     updateFavoriteUI();
-    collectImages();
 
     document.addEventListener("keydown", (e) => {
         const lightbox = document.getElementById("lightbox");
         if (!lightbox || lightbox.style.display !== "flex") return;
 
-        if (e.key === "ArrowRight") changeImage(1);
-        if (e.key === "ArrowLeft") changeImage(-1);
         if (e.key === "Escape") closeLightbox();
     });
 });
-
-/* =========================
-   SAFE DISPLAY SYSTEM
-========================= */
-
-function showItem(item) {
-    item.classList.remove("hidden");
-}
-
-function hideItem(item) {
-    item.classList.add("hidden");
-}
 
 /* =========================
    LIGHTBOX
@@ -50,32 +33,27 @@ function openLightbox(el) {
 
     lightbox.style.display = "flex";
 
-    // IMAGE
     if (img && el.tagName === "IMG") {
         lightbox.innerHTML = `
-            <img id="lightbox-img" src="${img.src}">
+            <img src="${img.src}">
         `;
     }
 
-    // VIDEO (LOCAL FILE)
     else if (video) {
         const src = video.querySelector("source").src;
 
         lightbox.innerHTML = `
-            <video controls style="max-width:90%; max-height:80%;">
+            <video controls autoplay style="max-width:90%; max-height:80%;">
                 <source src="${src}" type="video/mp4">
             </video>
         `;
     }
 }
 
-
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
-
     lightbox.style.display = "none";
-
-    lightbox.innerHTML = `<img id="lightbox-img">`;
+    lightbox.innerHTML = "";
 }
 
 /* =========================
@@ -99,12 +77,9 @@ function filterGallery(category, btn) {
             category === "all" ||
             item.dataset.category === category;
 
-        if (match) {
-            showItem(item);
-            visible++;
-        } else {
-            hideItem(item);
-        }
+        item.classList.toggle("hidden", !match);
+
+        if (match) visible++;
     });
 
     noResults.style.display = visible === 0 ? "block" : "none";
@@ -133,13 +108,13 @@ function searchGallery() {
             desc.toLowerCase().includes(input);
 
         if (match) {
-            showItem(item);
+            item.classList.remove("hidden");
             visible++;
 
             titleEl.innerHTML = highlightText(title, input);
             descEl.innerHTML = highlightText(desc, input);
         } else {
-            hideItem(item);
+            item.classList.add("hidden");
 
             titleEl.innerHTML = title;
             descEl.innerHTML = desc;
@@ -156,3 +131,72 @@ function highlightText(text, query) {
     return text.replace(regex, `<span class="highlight">$1</span>`);
 }
 
+/* =========================
+   FAVORITES SYSTEM
+========================= */
+
+function loadFavorites() {
+    const stored = localStorage.getItem("favorites");
+    favorites = stored ? JSON.parse(stored) : [];
+}
+
+function saveFavorites() {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function toggleFavorite(btn) {
+    const item = btn.closest(".griditem");
+    const id = item.dataset.id;
+
+    if (!id) return;
+
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(f => f !== id);
+    } else {
+        favorites.push(id);
+    }
+
+    saveFavorites();
+    updateFavoriteUI();
+}
+
+function updateFavoriteUI() {
+    document.querySelectorAll(".griditem").forEach(item => {
+        const id = item.dataset.id;
+        const btn = item.querySelector(".like-btn");
+
+        if (!btn) return;
+
+        const isFav = favorites.includes(id);
+
+        btn.classList.toggle("active", isFav);
+        btn.innerHTML = isFav ? "❤" : "♡";
+    });
+}
+
+/* =========================
+   FAVORITES FILTER (OPTIONAL)
+========================= */
+
+function showFavorites(btn) {
+    const items = document.querySelectorAll(".griditem");
+    let visible = 0;
+
+    document.querySelectorAll(".filter-btn").forEach(b => {
+        b.classList.remove("active");
+    });
+
+    if (btn) btn.classList.add("active");
+
+    items.forEach(item => {
+        const id = item.dataset.id;
+        const isFav = favorites.includes(id);
+
+        item.classList.toggle("hidden", !isFav);
+
+        if (isFav) visible++;
+    });
+
+    document.getElementById("noResults").style.display =
+        visible === 0 ? "block" : "none";
+}
