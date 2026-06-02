@@ -87,6 +87,7 @@ body {
     margin-top: 90px;
 }
 
+
 .filter-btn {
     background: rgb(35, 35, 35);
     color: white;
@@ -296,7 +297,7 @@ body {
 
 .footer-left p {
     color: rgb(180, 180, 180);
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .footer-links,
@@ -350,7 +351,10 @@ body {
     transform: translateY(-3px);
 }
 
+.NCT {
+    width: 160px;
 
+}
 
 .tags {
     margin-top: 8px;
