@@ -243,34 +243,6 @@ function createHeartPop(btn) {
 }
 
 
-// Background Music 
-
-const music = new Audio('Ed Sheeran, Elton John - Merry Christmas (Lyrics).mp3');
-music.loop = true;
-music.volume = 0.5;
-
-const btn = document.getElementById('musicToggle');
-
-// Try to play on page load (may be blocked by browser)
-window.addEventListener('DOMContentLoaded', () => {
-    music.play().catch(() => {
-        console.log("Autoplay blocked — waiting for user click");
-    });
-});
-
-btn.addEventListener('click', () => {
-    if (music.paused) {
-        music.play();
-        btn.textContent = '🔊';
-    } else {
-        music.pause();
-        btn.textContent = '🔈';
-    }
-});
-
-
-
-
 
 const canvas = document.getElementById("snow");
 const ctx = canvas.getContext("2d");
