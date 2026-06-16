@@ -219,7 +219,6 @@ animation: wobbleStretch 0.45s ease-out;
     overflow: hidden;
 
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -255,6 +254,75 @@ animation: wobbleStretch 0.45s ease-out;
 /* =========================
    LIKE BUTTON
 ========================= */
+
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 14px 16px;
+
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    font-size: 1rem;
+    outline: none;
+
+    transition: 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #4da3ff;
+    box-shadow: 0 0 12px rgba(77, 163, 255, 0.4);
+}
+
+form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+form button {
+    padding: 14px 20px;
+
+    background: #4da3ff;
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+
 .like-btn {
     position: absolute;
     top: 10px;
@@ -641,9 +709,30 @@ h1 {
 
 .link {
     display: block;
-    width: 50px;
-    border-radius: 10px;
+    width: 30px;
+    border-radius: 20px;
+}
 
+.footer img:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+
+h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin: 16px 20px 8px;
+}
+
+h2 a {
+    color: rgb(65, 94, 142);
+    text-decoration: none;
 }
 
 /* * {
