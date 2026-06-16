@@ -564,6 +564,7 @@ h1 {
 }
 
 .faq {
+    height: ;
     position: relative;
     isolation: isolate;
 
@@ -738,4 +739,5 @@ h2 a {
 /* * {
     border: 1px solid rgba(255, 255, 255, 0.12);
 } */
+
 
