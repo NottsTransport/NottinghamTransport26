@@ -34,6 +34,7 @@
 <div id="countdown"></div>
 
 
+
 <!-- =========================
      SEARCH BAR
 ========================= -->
@@ -49,6 +50,8 @@
 <div id="noResults" class="no-results">
     No results found
 </div>
+
+
 
 
 <!-- =========================
@@ -189,12 +192,29 @@
 <section>
     <h1>Faq & Bus Facts</h1>
     <h2>Please <a href="mailto:nottinghamtransport@outlook.com">Email Me</a> if you have any questions, we will progress them, will email you back once published!</h2>
+
+
+    <div class="searchbar">
+    <input
+        type="text"
+        id="searchInput2"
+        placeholder="Search for Faq & Bus Facts..."
+        onkeyup="searchfaq()"
+    >
+</div>
+
+<div id="nofaq" class="nofaq">
+  No Faq & Bus Facts found!
+</div>
+   
     <div class="faq-grid">
+
+        
         
         <div class="faq">
-            <h1>How far can an Double-Decker lean on corners before tipping over?</h1>
+            <h1 class="faq-a">How far can an Double-Decker lean on corners before tipping over?</h1>
             <hr>
-            <p>The Main answer is that a double-decker bus can lean at an angle of approximately 45 degrees before tipping over, and that gives it a stable base while navigating turns.</p>
+            <p class="faq-p">The Main answer is that a double-decker bus can lean at an angle of approximately 45 degrees before tipping over, and that gives it a stable base while navigating turns.</p>
         </div>
 
         <div class="faq">

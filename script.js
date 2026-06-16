@@ -290,3 +290,34 @@ window.addEventListener("resize", () => {
 });
 
 
+function searchfaq() {
+    const input = document.getElementById("searchInput2").value.toLowerCase();
+    const items = document.querySelectorAll(".faq");
+    const noResults = document.getElementById("nofaq");
+
+    let visible = 0;
+
+    items.forEach(item => {
+        const titleEl = item.querySelector("h1");
+        const descEl = item.querySelector("p");
+
+        const title = titleEl.textContent;
+        const desc = descEl.textContent;
+
+        const match =
+            title.toLowerCase().includes(input) ||
+            desc.toLowerCase().includes(input);
+
+        if (match) {
+            item.classList.remove("hidden");
+            visible++; // Count visible FAQs
+
+            titleEl.innerHTML = highlightText(title, input);
+            descEl.innerHTML = highlightText(desc, input);
+        } else {
+            item.classList.add("hidden");
+        }
+    });
+
+    noResults.style.display = visible === 0 ? "block" : "none";
+}

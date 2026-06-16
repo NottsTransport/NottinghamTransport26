@@ -430,6 +430,8 @@ body hr {
     color: rgb(180,180,180);
 }
 
+
+
 /* VIDEO */
 .griditem video {
     width: 100%;
@@ -564,7 +566,6 @@ h1 {
 }
 
 .faq {
-    height: ;
     position: relative;
     isolation: isolate;
 
@@ -586,6 +587,8 @@ h1 {
         box-shadow 0.35s ease,
         border-color 0.35s ease;
 }
+
+
 
 .faq::before {
     content: "";
@@ -650,13 +653,6 @@ h1 {
     margin: 20px 16px 12px;
 }
 
-.faq hr {
-    border: none;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px;
-}
-
 .faq p {
     color: rgba(255, 255, 255, 0.9);
 
@@ -668,6 +664,23 @@ h1 {
     margin: 0;
     padding: 0 20px 20px;
 }
+
+.faq hr {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.nofaq {
+    display: none;
+    text-align: center;
+    margin: 30px;
+    color: rgb(180,180,180);
+}
+
+
+
 /* TAGS */
 .tags {
     margin-top: 8px;
@@ -736,8 +749,9 @@ h2 a {
     text-decoration: none;
 }
 
+
+
 /* * {
     border: 1px solid rgba(255, 255, 255, 0.12);
 } */
-
 
