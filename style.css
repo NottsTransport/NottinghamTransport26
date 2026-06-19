@@ -787,7 +787,7 @@ h2 a {
     backdrop-filter: blur(0px);
 }
 
-.hero-overlay h2 {
+/* .hero-overlay h2 {
 margin: 0;
 font-size: clamp(1.5rem, 6vw, 4rem);
 line-height: 1.1;
@@ -816,6 +816,48 @@ filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
 @keyframes rainbowMove {
 from { background-position: 0% center; }
 to { background-position: 300% center; }
+} */
+
+
+.hero-overlay h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 6vw, 4rem);
+    line-height: 1.1;
+    padding: 0 15px;
+    font-family: transport;
+    font-weight: bold;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            to right,
+            white 0%,
+            white 42%,
+            #cf142b 42%,
+            #cf142b 58%,
+            white 58%,
+            white 100%
+        ),
+        linear-gradient(
+            to bottom,
+            white 0%,
+            white 42%,
+            #cf142b 42%,
+            #cf142b 58%,
+            white 58%,
+            white 100%
+        );
+
+    background-size: 100% 100%;
+    background-blend-mode: multiply;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    filter:
+        drop-shadow(0 0 5px rgba(255,255,255,0.4))
+        drop-shadow(0 0 10px rgba(207,20,43,0.3));
 }
 .hero-overlay p {
     margin-top: 10px;
