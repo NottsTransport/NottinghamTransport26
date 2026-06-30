@@ -9,6 +9,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
 </head>
 <!-- <canvas id="snow"></canvas> -->
 <body>
@@ -23,9 +24,14 @@
     <div class="hero-overlay">
         <h2>Nottingham Transport UK</h2>
         <p>Buses • Photography • FAQs • Facts • + More!</p>
+        
+        <div class="filters">
+            <button id="FAQbtn" class="filter-btn">Scroll to FAQ's</button>
+
+        </div>
+
     </div>
 </div>
-
 
 <!-- =========================
      FILTER BUTTONS
@@ -37,7 +43,27 @@
     <button class="filter-btn" onclick="filterGallery('BioGas', this)">Bio-Gas</button>
     <button class="filter-btn" onclick="showFavorites(this)">Favorites</button>
 </div>
+
+
 <div id="countdown"></div>
+<div class="upload-box">
+  <h3>Upload Photo (BETA)</h3>
+
+  <input type="file" id="fileInput" accept="image/*">
+
+  <input type="text" id="titleInput" placeholder="Photo title">
+
+  <textarea id="descInput" placeholder="Photo description..."></textarea>
+
+  <select id="categoryInput">
+    <option value="Wrightbus">Wrightbus</option>
+    <option value="Yutong">Yutong</option>
+    <option value="BioGas">Bio-Gas</option>
+  </select>
+
+  <button onclick="fakeUpload()">Upload Photo</button>
+</div>
+
 
 
 
@@ -63,7 +89,7 @@
 <!-- =========================
      GALLERY GRID START
 ========================= -->
-<div class="gridbox">
+<div class="gridbox" id="Photos">
 
     <!-- =========================
          CARD 1
@@ -211,7 +237,8 @@
     <img id="lightbox-img" alt="Expanded view">
 </div>
 
-<hr>
+<hr id="FAQs">
+<button id="topBtn">↑ Top</button>
 
 <section>
     <h1>Faq & Bus Facts</h1>
@@ -236,9 +263,9 @@
         
         
         <div class="faq">
-            <h1 class="faq-a">How far can an Double-Decker lean on corners before tipping over?</h1>
+            <h1 class="faq-a">How much can a double-decker bus lean before tipping over?</h1>
             <hr>
-            <p class="faq-p">The Main answer is that a double-decker bus can lean at an angle of approximately 45 degrees before tipping over, and that gives it a stable base while navigating turns.</p>
+            <p class="faq-p">In real-world conditions, a double-decker bus typically reaches rollover risk at <span>around 25–35° of body lean</span>, depending on speed, load, and centre of gravity. The often-quoted “45°” figure is not realistic for normal road conditions.</p>
         </div>
 
         <div class="faq">
@@ -252,36 +279,16 @@
             <hr>
             <p>The destination board on the front of a bus is braned by Hanover on some of the fleets and Mobitec on other fleets.</p>
         </div>
-
-        
-
-        
     </div>
+
+
 
     
 </section>
 
-<!-- <form
-  action="https://formspree.io/f/xeewnpdw"
-  method="POST"
->
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  your other form fields go here -->
-  <!-- <button type="submit">Send</button>
-</form>
 
-
-
- =========================
-     FOOTER
-========================= -->
+     <!-- FOOTER
+=========================  -->
 <footer class="footer">
 
     <div class="footer-content">
@@ -344,6 +351,75 @@
      SCRIPT
 ========================= -->
 <script src="script.js"></script>
+<script src="Filter.js"></script>
+
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } 
+    from "https://www.gstatic.com/firebasejs/10.12.4/firebase-storage.js";
+  import { getFirestore, addDoc, collection, getDocs } 
+    from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyBN853nCYrfu5Ha8qnjy9rfCwCMRYmcAfM",
+    authDomain: "nottinghamtransport-2aaa2.firebaseapp.com",
+    projectId: "nottinghamtransport-2aaa2",
+    storageBucket: "nottinghamtransport-2aaa2.firebasestorage.app",
+    messagingSenderId: "233347265473",
+    appId: "1:233347265473:web:dd1de0fc10f36a3d713540",
+    measurementId: "G-XCRFY3Y8VZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+  const db = getFirestore(app);
+
+  // MAKE AVAILABLE GLOBALLY
+  window.firebaseUpload = async function(file, title, desc, category) {
+
+    const storageRef = ref(storage, "photos/" + Date.now() + file.name);
+
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+
+    await addDoc(collection(db, "photos"), {
+      url,
+      title,
+      desc,
+      category,
+      created: Date.now()
+    });
+
+    alert("Upload successful!");
+    loadPhotos(); // refresh gallery
+  };
+
+  // LOAD EXISTING PHOTOS
+  window.loadPhotos = async function() {
+    const querySnapshot = await getDocs(collection(db, "photos"));
+
+    document.getElementById("Photos").innerHTML = "";
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const div = document.createElement("div");
+      div.className = "griditem";
+      div.dataset.category = data.category;
+
+      div.innerHTML = `
+        <div class="like-btn">♡</div>
+        <img src="${data.url}" onclick="openLightbox(this)">
+        <div class="card-content">
+          <h3 class="card-title">${data.title}</h3>
+          <p class="card-desc">${data.desc}</p>
+        </div>
+      `;
+
+      document.getElementById("Photos").appendChild(div);
+    });
+  };
+  loadPhotos()
+</script>
 
 
 
