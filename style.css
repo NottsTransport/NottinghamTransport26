@@ -3,37 +3,27 @@
 ========================= */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* * {
-    border: 1px solid red;
-} */
-/* =========================
-   FONT
-========================= */
 @font-face {
     font-family: 'Transport';
     src: url('La\ Machine\ Company.ttf') format('truetype');
 }
 
-/* =========================
-   BODY (better glass background support)
-========================= */
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
-
-    background: radial-gradient(circle at top, #1a2a3a, #0a0a0a);
+    background: linear-gradient(to bottom, rgb(8, 0, 45), rgb(0, 0, 0));
 }
 
 span {
     font-weight: bold;
 }
-/* =========================
-   GLASS BASE CLASS (REUSABLE)
-========================= */
+
 .glass {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -114,16 +104,6 @@ span {
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
-.radio-option {
-    display: inline-block;
-    margin: 0 6px;
-}
-
-/* hide real radio */
-.radio-option input {
-    display: none;
-}
-
 /* button look */
 .radio-option span {
     display: inline-block;
@@ -146,19 +126,7 @@ span {
     transition: 0.2s ease;
 }
 
-/* hover (matches your filter buttons vibe) */
-.radio-option span:hover {
-    background: rgba(255, 255, 255, 0.12);
-    animation: wobbleStretch 0.45s ease-out;
-}
 
-/* selected state (matches .filter-btn.active style) */
-.radio-option input:checked + span {
-    background: rgba(0, 200, 210, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: white;
-    box-shadow: 0 0 18px rgba(0, 200, 210, 0.2);
-}
 .logo {
     position: absolute;
     left: 15px;
@@ -172,7 +140,7 @@ span {
     text-align: center;
     font-family: 'Transport';
     color: rgb(255, 255, 255);
-    font-size: clamp(1.2rem, 3vw, rem);
+    font-size: clamp(1.2rem, 3vw, 1.2rem);
 }
 
 /* =========================
@@ -186,13 +154,13 @@ span {
 
 .searchbar input {
     width: 60%;
-    max-width: 400px;
+    max-width: 500px;
 
     padding: 10px 14px;
     border: none;
     outline: none;
 
-    border-radius: 80px;
+    border-radius: 12px;
 
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
@@ -222,7 +190,7 @@ span {
 
     color: white;
     padding: 8px 14px;
-    border-radius: 80px;
+    border-radius: 12px;
 
     cursor: pointer;
     transition: 0.2s;
@@ -266,7 +234,7 @@ animation: wobbleStretch 0.45s ease-out;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
 
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
 
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
@@ -302,77 +270,6 @@ animation: wobbleStretch 0.45s ease-out;
     color: rgb(180,180,180);
 }
 
-/* =========================
-   LIKE BUTTON
-========================= */
-
-form {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-form input,
-form textarea {
-    width: 100%;
-    padding: 14px 16px;
-
-    background: rgba(255, 255, 255, 0.06);
-    color: white;
-
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-
-    font-size: 1rem;
-    outline: none;
-
-    transition: 0.3s ease;
-}
-
-form input:focus,
-form textarea:focus {
-    border-color: #4da3ff;
-    box-shadow: 0 0 12px rgba(77, 163, 255, 0.4);
-}
-
-form textarea {
-    min-height: 140px;
-    resize: vertical;
-}
-
-form button {
-    padding: 14px 20px;
-
-    background: #4da3ff;
-    color: white;
-
-    border: none;
-    border-radius: 12px;
-
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-
-    transition: 0.3s ease;
-}
-
-form button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-
 
 .like-btn {
     position: absolute;
@@ -403,7 +300,7 @@ form button:hover {
 }
 
 .like-btn.active {
-    color: red;
+    color: rgb(55, 2, 88);
 }
 
 /* =========================
@@ -581,7 +478,7 @@ body hr {
 
 /* HEADING */
 h1 {
-    font-family: 'Transport', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     color: white;
     font-size: clamp(1.4rem, 3vw, 2.4rem);
     font-weight: 700;
@@ -796,8 +693,8 @@ h2 {
 }
 
 h2 a {
-    color: rgb(65, 94, 142);
-    text-decoration: none;
+    color: rgb(0, 123, 185);
+    text-decoration: underline;
 }
 
 
@@ -838,7 +735,7 @@ h2 a {
     backdrop-filter: blur(0px);
 }
 
-/* .hero-overlay h2 {
+.hero-overlay h2 {
 margin: 0;
 font-size: clamp(1.5rem, 6vw, 4rem);
 line-height: 1.1;
@@ -867,49 +764,9 @@ filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
 @keyframes rainbowMove {
 from { background-position: 0% center; }
 to { background-position: 300% center; }
-} */
-
-
-.hero-overlay h2 {
-    margin: 0;
-    font-size: clamp(1.5rem, 6vw, 4rem);
-    line-height: 1.1;
-    padding: 0 15px;
-    font-family: transport;
-    font-weight: bold;
-    text-align: center;
-
-    background:
-        linear-gradient(
-            to right,
-            white 0%,
-            white 42%,
-            #cf142b 42%,
-            #cf142b 58%,
-            white 58%,
-            white 100%
-        ),
-        linear-gradient(
-            to bottom,
-            white 0%,
-            white 42%,
-            #cf142b 42%,
-            #cf142b 58%,
-            white 58%,
-            white 100%
-        );
-
-    background-size: 100% 100%;
-    background-blend-mode: multiply;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-
-    filter:
-        drop-shadow(0 0 5px rgba(255,255,255,0.4))
-        drop-shadow(0 0 10px rgba(207,20,43,0.3));
 }
+
+
 .hero-overlay p {
     margin-top: 10px;
     font-size: clamp(0.9rem, 3vw, 1.3rem);
@@ -953,58 +810,4 @@ to { background-position: 300% center; }
 #topBtn:hover {
   transform: scale(1.1);
   background: rgba(255, 255, 255, 0.059);
-}
-
-
-.upload-box {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.upload-box h3 {
-    margin-bottom: 15px;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-.upload-box input,
-.upload-box textarea,
-.upload-box select {
-    width: 100%;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-}
-
-.upload-box textarea {
-    resize: none;
-    height: 80px;
-}
-
-.upload-box button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 10px;
-    background: #1e90ff;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.upload-box button:hover {
-    background: #0d6efd;
-    transform: scale(1.03);
 }
