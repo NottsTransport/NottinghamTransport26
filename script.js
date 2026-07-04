@@ -11,15 +11,14 @@ let favorites = [];
 document.addEventListener("DOMContentLoaded", () => {
     loadFavorites();
     updateFavoriteUI();
-    // Attach mobile-friendly handlers to like buttons
+
     document.querySelectorAll('.like-btn').forEach(btn => {
-        // Prevent taps on the like button from bubbling to the image/lightbox.
+
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleFavorite(btn);
         });
 
-        // On touch devices, stop propagation on touchstart to avoid accidental image taps.
         btn.addEventListener('touchstart', (e) => {
             e.stopPropagation();
         }, { passive: true });
@@ -47,9 +46,7 @@ function openLightbox(el) {
     lightbox.style.display = "flex";
 
     if (img && el.tagName === "IMG") {
-        lightbox.innerHTML = `
-            <img src="${img.src}">
-        `;
+        lightbox.innerHTML = `<img src="${img.src}">`;
     }
 
     else if (video) {
@@ -99,7 +96,7 @@ function filterGallery(category, btn) {
 }
 
 /* =========================
-   SEARCH + HIGHLIGHT
+   SEARCH
 ========================= */
 
 function searchGallery() {
@@ -145,6 +142,34 @@ function highlightText(text, query) {
 }
 
 /* =========================
+   GEO LOCATION (IMPROVED)
+========================= */
+
+async function getCityName(lat, lon) {
+    try {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const a = data.address;
+
+        return (
+            a.village ||
+            a.hamlet ||
+            a.suburb ||
+            a.neighbourhood ||
+            a.town ||
+            a.city ||
+            a.county ||
+            "Unknown location"
+        );
+    } catch (e) {
+        return "Unknown location";
+    }
+}
+
+/* =========================
    FAVORITES SYSTEM
 ========================= */
 
@@ -163,22 +188,46 @@ function toggleFavorite(btn) {
 
     if (!id) return;
 
-    // toggle favorite
-    if (favorites.includes(id)) {
-        favorites = favorites.filter(f => f !== id);
-    } else {
-        favorites.push(id);
+    const index = favorites.findIndex(f => f.id === id);
 
-        // 💥 HEART POP ANIMATION (only when liking)
-        createHeartPop(btn);
+    // REMOVE
+    if (index !== -1) {
+        favorites.splice(index, 1);
+        saveFavorites();
+        updateFavoriteUI();
+        return;
     }
 
-    saveFavorites();
-    updateFavoriteUI();
-    
+    // ADD + LOCATION
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+
+        const place = await getCityName(lat, lon);
+
+        favorites.push({
+            id: id,
+            likedAt: Date.now(),
+            place: place
+        });
+
+        saveFavorites();
+        updateFavoriteUI();
+        createHeartPop(btn);
+
+    }, () => {
+
+        favorites.push({
+            id: id,
+            likedAt: Date.now()
+        });
+
+        saveFavorites();
+        updateFavoriteUI();
+        createHeartPop(btn);
+    });
 }
-
-
 
 function updateFavoriteUI() {
     document.querySelectorAll(".griditem").forEach(item => {
@@ -187,15 +236,49 @@ function updateFavoriteUI() {
 
         if (!btn) return;
 
-        const isFav = favorites.includes(id);
+        const fav = favorites.find(f => f.id === id);
+        const isFav = !!fav;
 
         btn.classList.toggle("active", isFav);
         btn.innerHTML = isFav ? "❤" : "♡";
+
+        let badge = item.querySelector(".ribbon");
+
+        if (isFav && !badge) {
+            badge = document.createElement("div");
+            badge.className = "ribbon";
+
+            const date = new Date(fav.likedAt);
+
+            let locationText = "";
+
+            if (fav.place) {
+                locationText = ` @ ${fav.place}`;
+            }
+
+            badge.textContent =
+                "Liked on " +
+                date.toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                }) +
+                locationText;
+
+            item.appendChild(badge);
+        }
+
+        else if (!isFav && badge) {
+            badge.remove();
+        }
     });
 }
 
 /* =========================
-   FAVORITES FILTER (OPTIONAL)
+   FAVORITES FILTER
 ========================= */
 
 function showFavorites(btn) {
@@ -210,7 +293,7 @@ function showFavorites(btn) {
 
     items.forEach(item => {
         const id = item.dataset.id;
-        const isFav = favorites.includes(id);
+        const isFav = favorites.some(f => f.id === id);
 
         item.classList.toggle("hidden", !isFav);
 
@@ -221,6 +304,10 @@ function showFavorites(btn) {
         visible === 0 ? "block" : "none";
 }
 
+/* =========================
+   HEART POP
+========================= */
+
 function createHeartPop(btn) {
     const heart = document.createElement("div");
     heart.classList.add("floating-heart");
@@ -228,7 +315,6 @@ function createHeartPop(btn) {
 
     const rect = btn.getBoundingClientRect();
 
-    // Account for page scroll when positioning on mobile
     const scrollLeft = window.scrollX || window.pageXOffset || 0;
     const scrollTop = window.scrollY || window.pageYOffset || 0;
 
@@ -237,87 +323,35 @@ function createHeartPop(btn) {
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 800);
+    setTimeout(() => heart.remove(), 800);
 }
 
 
+const holder = document.getElementById("Photos");
 
-const canvas = document.getElementById("snow");
-const ctx = canvas.getContext("2d");
+// count only direct div children
+const count = holder.querySelectorAll(":scope > div").length;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+document.getElementById("count").textContent =
+    "There are currently: " + count + " photos in the gallery.";
 
-const snowflakes = [];
 
-for (let i = 0; i < 100; i++) {
-  snowflakes.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    radius: Math.random() * 3 + 1,
-    speed: Math.random() * 1 + 0.5
+function updateDaysAgo() {
+  document.querySelectorAll("[data-time]").forEach(el => {
+    const date = new Date(el.dataset.time);
+    const diff = Date.now() - date;
+
+    const days = Math.floor(diff / 86400000);
+
+    const formattedDate = date.toLocaleString("en-GB", {
+      year: "numeric",
+        day: "2-digit",
+        month: "long",
+        });
+
+    el.textContent = `Photo taken ${days} days ago, on the ${formattedDate}`;
   });
 }
 
-function drawSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "white";
-
-  for (let flake of snowflakes) {
-    ctx.beginPath();
-    ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    flake.y += flake.speed;
-
-    if (flake.y > canvas.height) {
-      flake.y = -5;
-      flake.x = Math.random() * canvas.width;
-    }
-  }
-
-  requestAnimationFrame(drawSnow);
-}
-
-drawSnow();
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
-
-
-function searchfaq() {
-    const input = document.getElementById("searchInput2").value.toLowerCase();
-    const items = document.querySelectorAll(".faq");
-    const noResults = document.getElementById("nofaq");
-
-    let visible = 0;
-
-    items.forEach(item => {
-        const titleEl = item.querySelector("h1");
-        const descEl = item.querySelector("p");
-
-        const title = titleEl.textContent;
-        const desc = descEl.textContent;
-
-        const match =
-            title.toLowerCase().includes(input) ||
-            desc.toLowerCase().includes(input);
-
-        if (match) {
-            item.classList.remove("hidden");
-            visible++; // Count visible FAQs
-
-            titleEl.innerHTML = highlightText(title, input);
-            descEl.innerHTML = highlightText(desc, input);
-        } else {
-            item.classList.add("hidden");
-        }
-    });
-
-    noResults.style.display = visible === 0 ? "block" : "none";
-}
+updateDaysAgo();
+setInterval(updateDaysAgo, 60000);

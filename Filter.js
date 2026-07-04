@@ -24,3 +24,25 @@ topBtn.addEventListener("click", function () {
         behavior: "smooth"
     });
 });
+
+
+const themeToggle = document.getElementById("themebtn");
+
+var White = false
+
+function settheme() {
+    if (White === false) {
+        document.body.classList.add("light-mode");
+        White = true;
+    } else {
+        document.body.classList.remove("light-mode");
+        White = false;
+    }
+}
+
+themeToggle.addEventListener("click", settheme);
+
+settheme()
+
+
+

@@ -12,20 +12,25 @@
 
 <body>
 
+
+
+    
+
+    <div class="theme" id="themebtn" onclick="settheme()">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
+    
 <div class="hero-banner">
     <img src="Photos/bus26southwell.jpeg" alt="Nottingham Transport UK Banner">
 
     <div class="hero-overlay">
         <h2>Nottingham Transport UK</h2>
         <p>Buses • Photography • FAQs • Facts • + More!</p>
-        
-        <div class="filters">
-            <button id="FAQbtn" class="filter-btn">Scroll to FAQ's</button>
-
-        </div>
-
     </div>
 </div>
+
+
 
 <!-- =========================
      FILTER BUTTONS
@@ -63,7 +68,10 @@
 <!-- =========================
      GALLERY GRID START
 ========================= -->
+<section>
+    <p id="count">Div count: 0</p>
 <div class="gridbox" id="Photos">
+    
 
     <!-- =========================
          CARD 1
@@ -74,12 +82,14 @@
         <img src="Photos/southwell26.jpeg" onclick="openLightbox(this)" alt="Wrightbus">
 
         <div class="card-content">
+            
             <h3 class="card-title">Welcome to the Wrightbus</h3>
             <p class="card-desc">
                 The all-new Wrightbus has been introduced to the Nottingham City Transport fleet,
                 serving the routes <strong>25, 26 and 27</strong>.
                 You identify them with fleet numbers <strong>671, 672, 673, 674, 675 and 676</strong>.
             </p>
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
     </div>
 
@@ -98,6 +108,7 @@
             <p class="card-desc">
                 Orange Line serves routes <strong>34, 35, and 36</strong> in Nottingham.
             </p>
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
     </div>
 
@@ -115,11 +126,11 @@
             <p class="card-desc">
                 Brown Line serves routes 15, 16 and 17 in Nottingham.
             </p>
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
-        
     </div>
 
-        <!-- =========================
+    <!-- =========================
          CARD 4
     ========================= -->
     <div class="griditem" data-id="4" data-category="Yutong">
@@ -133,10 +144,11 @@
             <p class="card-desc">
                 Yutong buses are part of the Nottingham City Electric Transport fleet.
             </p>
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
     </div>
 
-            <!-- =========================
+    <!-- =========================
          CARD 5
     ========================= -->
     <div class="griditem" data-id="5" data-category="Yutong">
@@ -150,6 +162,7 @@
             <p class="card-desc">
                 Pink Line serves routes <strong>30</strong> in Nottingham.
             </p>
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
     </div>
     
@@ -169,11 +182,11 @@
             <p class="card-desc">
                 What a beautiful bus!
             </p>
-            
+            <span data-time="2026-05-27T00:00:00Z"></span>
         </div>
     </div>
 
-                <!-- =========================
+    <!-- =========================
          CARD 7
     ========================= -->
     <div class="griditem" data-id="7" data-category="Wrightbus">
@@ -185,10 +198,54 @@
             <h3 class="card-title">Best Photo Yet!</h3>
 
             <p class="card-desc">
-                This now my best photo yet that I have taken photo of! ☺️
+                This is now my best photo that I have taken photo of! ☺️
             </p>
+            <span data-time="2026-06-17T00:00:00Z"></span>
         </div>
     </div>
+
+
+
+
+    <!-- =========================
+         CARD 8
+    ========================= -->
+    <div class="griditem" data-id="8" data-category="Yutong">
+             <div class="like-btn">♡</div>
+
+        <img src="Photos/yellow39.jpeg" onclick="openLightbox(this)" alt="Yutong Bus">
+
+        <div class="card-content">
+            <h3 class="card-title">Yellow on a 39</h3>
+
+            <p class="card-desc">
+                Yes thats right, a yellow bus on a 39 route!
+            </p>
+            <span data-time="2026-07-01T00:00:00Z"></span>
+        </div>
+    </div>
+
+
+        <!-- =========================
+         CARD 9
+    ========================= -->
+    <div class="griditem" data-id="9" data-category="Wrightbus">
+             <div class="like-btn">♡</div>
+
+        <img src="Photos/july26.jpeg" onclick="openLightbox(this)" alt="Yutong Bus">
+
+        <div class="card-content">
+            <h3 class="card-title">Pathfinder</h3>
+
+            <p class="card-desc">
+                I have been up to southwell 3 times in one day, this was the last time I went up to southwell, and I got this photo of a pathfinder bus on a 26 route!
+            </p>
+            <span data-time="2026-07-04T00:00:00Z"></span>
+        </div>
+    </div>
+
+
+
 
 
 
@@ -198,6 +255,8 @@
 
 
 </div>
+
+</section>
 <!-- =========================
      GALLERY GRID END
 ========================= -->
@@ -262,6 +321,12 @@
 </section>
 
 
+<section>
+    <h1>About Me</h1>
+
+    <hr>
+</section>
+
      <!-- FOOTER
 =========================  -->
 <footer class="footer">
@@ -289,9 +354,7 @@
         </div>
 
         
-        
-
-
+    
 
 
     </div>

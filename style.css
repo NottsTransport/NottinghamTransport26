@@ -3,8 +3,6 @@
 ========================= */
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 @font-face {
@@ -17,7 +15,12 @@ body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
-    background: linear-gradient(to bottom, rgb(8, 0, 45), rgb(0, 0, 0));
+    background: linear-gradient(to bottom, #092644, rgb(0, 0, 0));
+}
+
+body.light-mode {
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(200, 200, 200));
+    color: #333;
 }
 
 span {
@@ -66,6 +69,11 @@ span {
     40% { transform: scale(1.4); opacity: 1; }
     70% { transform: scale(0.9); }
     100% { transform: scale(1); }
+}
+
+
+body.light-mode h1 {
+    color: rgb(14, 14, 14);
 }
 
 .floating-heart {
@@ -169,6 +177,12 @@ span {
     backdrop-filter: blur(10px);
 }
 
+body.light-mode .searchbar input{
+    background: rgba(0, 0, 0, 0.162);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: #000000;
+}
+
 .searchbar input::placeholder {
     color: rgb(160, 160, 160);
 }
@@ -197,6 +211,12 @@ span {
     backdrop-filter: blur(10px);
 }
 
+body.light-mode .filter-btn {
+    background: rgba(0, 0, 0, 0.162);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: #000000;
+}
+
 .filter-btn:hover {
     background: rgba(255,255,255,0.12);
 animation: wobbleStretch 0.45s ease-out;
@@ -206,6 +226,12 @@ animation: wobbleStretch 0.45s ease-out;
 .filter-btn.active {
     background: rgba(0, 200, 210, 0.35);
     color: white;
+    
+}
+
+body.light-mode .filter-btn.active {
+    background: rgba(111, 149, 190, 0.604);
+    color: rgb(0, 0, 0);
     
 }
 
@@ -240,6 +266,7 @@ animation: wobbleStretch 0.45s ease-out;
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 
 .griditem:hover {
     transform: translateY(-5px);
@@ -295,6 +322,11 @@ animation: wobbleStretch 0.45s ease-out;
     backdrop-filter: blur(10px);
 }
 
+body.light-mode .like-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
 .like-btn:hover {
     animation: wobbleStretch 0.45s ease-out;
 }
@@ -329,8 +361,13 @@ body hr {
     justify-self: center;
     height: 1px;
     width: 80%;
-    background: rgba(255, 255, 255, 0.161);
+    background: linear-gradient(to right, transparent, rgb(160, 160, 160), transparent);
     margin: 40px 0;
+}
+
+
+body.light-mode hr {
+        background: linear-gradient(to right, transparent, rgb(0, 0, 0), transparent);
 }
 
 /* NAV */
@@ -401,6 +438,13 @@ body hr {
     padding: 30px 20px 10px;
 }
 
+body.light-mode .footer {
+    background: rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    color: #000000;
+
+}
+
 /* MAIN FOOTER LAYOUT */
 .footer-content {
 
@@ -410,6 +454,10 @@ body hr {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+}
+
+body.light-mode footer p {
+    color: #000000;
 }
 
 .footer-left {
@@ -430,6 +478,10 @@ body hr {
     color: rgb(200, 200, 200);
     text-decoration: none;
     transition: color 0.2s ease;
+}
+
+body.light-mode .footer a {
+    color: rgb(0, 0, 0);
 }
 
 .footer a:hover {
@@ -459,6 +511,11 @@ body hr {
     border-radius: 10px;
 
     transition: all 0.2s ease;
+}
+
+body.light-mode .footer-social a {
+    background: rgba(255, 255, 255, 0.162);
+    border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .footer-social a:hover {
@@ -536,6 +593,11 @@ h1 {
         border-color 0.35s ease;
 }
 
+
+body.light-mode .faq {
+    background: rgba(44, 44, 44, 0.259);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
 
 
 .faq::before {
@@ -801,13 +863,265 @@ to { background-position: 300% center; }
   transform: translateY(10px);
 }
 
-#topBtn.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+
+
+.theme {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    background-color: #000000;
+    z-index: 300;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-#topBtn:hover {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.059);
+body.light-mode .theme {
+    background-color: #0505052f;
+    backdrop-filter: blur(12px);
+}
+
+
+
+
+
+.settingsholder {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(14px);
+    animation: fadeIn .25s ease;
+}
+
+.settings {
+    width: min(500px, 100%);
+    max-height: 85vh;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 22px;
+    overflow: hidden;
+
+    background: rgba(34, 34, 34, .78);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.08);
+
+    animation: popup .25s ease;
+}
+
+.settings .top {
+    height: 65px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.settings .top h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+
+.settings .close {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.08);
+    color: #fff;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.settings .close:hover {
+    background: #ff4d4d;
+    transform: rotate(90deg) scale(1.05);
+}
+
+.settings .close:active {
+    transform: scale(.95);
+}
+
+.settings .content {
+    flex: 1;
+    overflow-y: auto;
+
+    padding: 22px;
+
+    color: #fff;
+}
+
+.settings .content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.settings .content::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.15);
+    border-radius: 999px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(.95) translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.settings button.close:hover {
+    background-color: #e53935;
+}
+
+.settings button.close:active {
+    transform: scale(0.95);
+}
+
+.settings .content {
+    flex: 1;
+    padding: 20px;
+    color: white;
+    overflow-y: auto;
+}
+
+/* * {
+    border: 1px solid rgb(255, 0, 0);
+}
+ */
+
+
+
+.ribbon {
+  position: absolute;
+  top: 113px;
+  left: -8px;
+  padding: 6px 21px;
+  border-radius: 0 40px 40px 0;
+  background: #ffffff6b;
+  backdrop-filter: blur(12px);
+  color: #000000;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+#count {
+    display: block;
+    position: sticky;
+    top: 20px;
+    z-index: 300;
+    text-align: center;
+    align-items: center;
+    margin: 10px auto; 
+    width: min(90%, 400px);
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #ffffffb4;
+    backdrop-filter: blur(12px);
+    color: #000000;
+}
+body.light-mode #count {
+    background-color: #000000b4;
+    color: #ffffff;
+}
+
+.griditem .card-content span {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: rgb(180, 180, 180);
+}
+
+
+/* Modern browsers — Chrome 121+, Edge 121+, Firefox, Safari 18.2+ */
+* {
+  scrollbar-width: 8px;
+  scrollbar-color: #6366f1 #1e1b4b;
+}
+
+/* Legacy WebKit — older Chrome/Edge/Safari, radius, borders & shadows */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #1e1b4b;
+  border-radius: 4px;
+  padding: 1px;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #312e81;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #3730a3;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #6366f1;
+  border-radius: 4px;
+  min-height: 30px;
+  box-shadow: 0 0 6px rgba(129,140,248, 0.60);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #818cf8;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #a5b4fc;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
