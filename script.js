@@ -355,3 +355,7 @@ function updateDaysAgo() {
 
 updateDaysAgo();
 setInterval(updateDaysAgo, 60000);
+
+
+// document.getElementById("am").textContent = "My name is Cameron, and I've been interested in buses for the past few months. I decided to share that interest by posting photos of the buses I see and enjoy. I hope you like my content as much as I enjoy creating it!";
+

@@ -28,21 +28,24 @@ topBtn.addEventListener("click", function () {
 
 const themeToggle = document.getElementById("themebtn");
 
-var White = false
+// Load saved theme
+let White = localStorage.getItem("theme") === "light";
 
-function settheme() {
-    if (White === false) {
+function setTheme() {
+    if (White) {
         document.body.classList.add("light-mode");
-        White = true;
     } else {
         document.body.classList.remove("light-mode");
-        White = false;
     }
+
+    // Save theme
+    localStorage.setItem("theme", White ? "light" : "dark");
 }
 
-themeToggle.addEventListener("click", settheme);
+themeToggle.addEventListener("click", () => {
+    White = !White;
+    setTheme();
+});
 
-settheme()
-
-
-
+// Apply saved theme when the page loads
+setTheme();

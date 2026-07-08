@@ -802,26 +802,11 @@ margin: 0;
 font-size: clamp(1.5rem, 6vw, 4rem);
 line-height: 1.1;
 padding: 0 15px;
-font-family: transport;
+font-family:Arial, Helvetica, sans-serif;
 font-weight: bold;
 text-align: center;
-background: linear-gradient(
-90deg,
-#ff4d4d,
-#ff9f1a,
-#ffe600,
-#00ff88,
-#00d4ff,
-#4d79ff,
-#c84dff,
-#ff4d4d
-);
-background-size: 300% auto;
--webkit-background-clip: text;
 background-clip: text;
-color: transparent;
-animation: rainbowMove 8s linear infinite;
-filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
+color: white;
 }
 @keyframes rainbowMove {
 from { background-position: 0% center; }
@@ -1057,14 +1042,22 @@ body.light-mode .theme {
     top: 20px;
     z-index: 300;
     text-align: center;
-    align-items: center;
-    margin: 10px auto; 
+    margin: 10px auto;
     width: min(90%, 400px);
     padding: 10px;
     border-radius: 15px;
     background-color: #ffffffb4;
     backdrop-filter: blur(12px);
-    color: #000000;
+    color: #000;
+    transition: all 0.25s ease;
+}
+
+/* when sticky */
+#count.stuck {
+    transform: scale(1.18);
+    padding: 16px;
+    border-radius: 55px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 body.light-mode #count {
     background-color: #000000b4;
@@ -1124,4 +1117,17 @@ body.light-mode #count {
   display: none;
   width: 0;
   height: 0;
+}
+
+#am {
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin: 20px auto;
+    color: white;
+    font-size: 0.9rem;
+}
+
+body.light-mode #am {
+    color: #000000;
 }
